@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "",
-    "lintTest": "npx eslint ./", 
-    "lint": "npx eslint ./ --fix", 
+    "lintTest": "npx eslint ./*.js", 
+    "lint": "npx eslint ./*.js --fix", 
     "build": "npx babel ./ --out-dir ./build --ignore './node_modules','./*.json','.gitignore'",
     "dev": "npx nodemon --exec babel-node app.js"
   },
