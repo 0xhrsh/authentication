@@ -1,7 +1,7 @@
 var crypto = require("crypto");
 const {timeStamp} = require("console");
 
-const client = require("./client");
+const Client = require("./Client");
 
 var algorithm = "aes-192-cbc";
 var password = "*insert_secret_key_here*";
@@ -34,11 +34,11 @@ Token.prototype.getUserProfile = function (clientSecret) {
 	requestDate = new Date(decrytedToken.split("___")[2]).getTime();
 
 	if (new Date() <= new Date(requestDate + authWindow)) {
-		thisClient = new client(clientID, clientSecret, "");
+		thisClient = new Client(clientID, clientSecret, "");
 		if (thisClient.assertClientCreds()) {
 			// return getUser(ldap)
 		}
-		//return client invalid error
+		//return Client invalid error
 	}
 	//return auth window expired error
 };

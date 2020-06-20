@@ -1,4 +1,4 @@
-function client(clientID, clientSecret, redirectURL) {
+function Client(clientID, clientSecret, redirectURL) {
     this.clientID = clientID;
     this.clientSecret = clientSecret;
     this.redirectURL = redirectURL;
@@ -9,4 +9,4 @@ client.prototype.assertClientCreds = function () {
     return true;
 };
 
-module.exports = client;
+module.exports = Client;
