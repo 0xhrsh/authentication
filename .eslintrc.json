@@ -17,10 +17,6 @@
             "error",
             "unix"
         ],
-        "quotes": [
-            "error",
-            "double"
-        ],
         "semi": [
             "error",
             "always"
@@ -31,6 +27,9 @@
                 "allow": ["log"]
             }
         ], 
+        "no-unused-vars": ["off"], 
+        "no-unreachable": ["off"], 
+        "no-undef": ["off"], 
         "strict": 0
     }
 }
