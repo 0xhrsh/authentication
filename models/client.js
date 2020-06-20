@@ -4,7 +4,7 @@ function Client(clientID, clientSecret, redirectURL) {
     this.redirectURL = redirectURL;
 }
 
-client.prototype.assertClientCreds = function () {
+Client.prototype.assertClientCreds = function () {
     // match credentials from db
     return true;
 };

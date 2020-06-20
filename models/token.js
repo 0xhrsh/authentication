@@ -9,23 +9,19 @@ var password = "*insert_secret_key_here*";
 const key = crypto.scryptSync(password, 'salt', 24);
 const iv = Buffer.alloc(16, 0);
 
-const authWindow = 30 * 60 * 1000;
+const authWindow = 10 * 60 * 1000;
 
 
 // Class Token contains the implementation required for auth token operations,
 // including token creation and obtaining user details post credential verification
-function Token(authToken) {
-	this.authToken = authToken;
-}
-
-Token.prototype.generateToken = function (userID, clientID) {
+function Token(userID, clientID) {
 	const cipher = crypto.createCipheriv(algorithm, key, iv);
 
 	let requestDate = new Date();
 	let infoString = userID + "___" + clientID + "___" + requestDate;
 
 	this.authToken = cipher.update(infoString, 'utf8', 'hex') + cipher.final('hex');
-};
+}
 
 Token.prototype.getUserProfile = function (clientSecret) {
 	var decrytedToken = this.decrptyToken();
