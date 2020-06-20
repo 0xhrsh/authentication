@@ -4,7 +4,7 @@ const err_cb = (err) => {
 	if(err) console.log(err);
 };
 
-const db = new sqlite3.Database('./auth.db', sqlite3.OPEN_READWRITE, err => err_cb);
+const db = new sqlite3.Database('./auth.db', err => err_cb);
 
 const userTableSql = `CREATE TABLE users(
     user_id TEXT, 
