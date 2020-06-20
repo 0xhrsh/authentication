@@ -4,7 +4,7 @@
   "description": "auth portal for IITJ",
   "main": "app.js",
   "scripts": {
-    "test": "cd ./tests && npx mocha ./*.js",
+    "test": "cd ./build/tests && npx mocha ./*.js",
     "lintTest": "npx eslint ./",
     "lint": "npx eslint ./ --fix",
     "build": "npx babel ./ --out-dir ./build --ignore './node_modules','./*.json','.gitignore','README.md','.babelrc'",
