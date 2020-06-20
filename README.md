@@ -11,5 +11,11 @@ IITJ Software Engineering Project: OAuth/openid based authentication portal
 ## Build
 > npm run build
 
+## Test
+Build is required before testing, so
+> npm run build
+
+> npm test
+
 ## Start Server
 > npm start
