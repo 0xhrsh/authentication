@@ -5,22 +5,23 @@ const rimraf = require("rimraf");
 
 const dbclient = new SQLiteClient('./auth.db');
 
-describe("SQLiteClient Tests", () => {
-	before(async () => {
-		await createDB();
-	});
+before(async () => {
+	await createDB();
+});
 
-	after(async () => {
-		await new Promise((resolve, reject) => {
-			rimraf('./auth.db', (err) => {
-				if(!err){
-					resolve();
-				} else {
-					reject();
-				}
-			});
+after(async () => {
+	await new Promise((resolve, reject) => {
+		rimraf('./auth.db', (err) => {
+			if(!err){
+				resolve();
+			} else {
+				reject();
+			}
 		});
 	});
+});
+
+describe("SQLiteClient Tests", () => {
 
 	describe("InsertIntoTable Tests", () => {
 		it("should insert user object into users table in auth.db", async () => {
@@ -51,9 +52,9 @@ describe("SQLiteClient Tests", () => {
 	});
     
 	describe("GetFromTable Tests", () => {
-		describe("Getting user object earlier injected", async () => {
-			const user = await dbclient.getFromTable('users', 'username', 'beta.1');
-			it("should be equal to the user object injected before", () => {
+		describe("Getting user object earlier injected", () => {
+			it("should be equal to the user object injected before", async () => {
+				const user = await dbclient.getFromTable('users', 'username', 'beta.1');
 				assert.equal(user.user_id, "beta.1");
 				assert.equal(user.username, "beta.1");
 				assert.equal(user.first_name, "alpha");
@@ -62,15 +63,15 @@ describe("SQLiteClient Tests", () => {
 				assert.equal(user.password_sha256, "jsagdhjsgaj2o2i73g3h4");
 				assert.equal(user.email_id, "beta.1@iitj.ac.in");
 				assert.equal(user.phone_no, 1234567890);
-				assert.equal(user.roles, '["student", "pg"]');
+				assert.equal(user.roles, '["student","pg"]');
 				assert.equal(user.gender, 'male');
 				assert.equal(user.birth_date, '1/1/2000');
 			});
 		});
 
-		describe("Getting client object earlier injected", async () => {
-			const client = await dbclient.getFromTable('clients', 'client_id', 'LHC_portal');
-			it("should be equal to the client object injected before", () => {
+		describe("Getting client object earlier injected", () => {
+			it("should be equal to the client object injected before", async () => {
+				const client = await dbclient.getFromTable('clients', 'client_id', 'LHC_portal');
 				assert.equal(client.client_id, "LHC_portal");
 				assert.equal(client.client_secret, "AlphaBetaGamma");
 				assert.equal(client.redirect_uri, "https://lhc.iitj.ac.in/login");
