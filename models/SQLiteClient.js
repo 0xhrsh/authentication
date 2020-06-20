@@ -43,7 +43,7 @@ const generateInsertionSql = (table_name, entity_object) => {
 	values = values.substr(0, values.length-2);
     
 	const sql = `INSERT INTO ${table_name}(${keys}) VALUES(${values})`;
-	console.log(sql);
+	// console.log(sql);
 	return sql;
 };
 
@@ -68,7 +68,7 @@ class SQLiteClient{
 		});
 	}
 
-	getFromTaable(table_name, selector_column, value){
+	getFromTable(table_name, selector_column, value){
 		const querySql = `SELECT * FROM ${table_name} WHERE ${selector_column}='${value}'`;
 		const db = acquireSqlite3DBInstance(this.db_name);
 		return new Promise((resolve, reject) => {
@@ -87,23 +87,5 @@ class SQLiteClient{
 		});
 	}
 }
-
-// const a = {
-//     "user_id": "abc", 
-//     "username": "abc", 
-//     // "first_name": "abc", 
-//     "last_name": "", 
-//     "middle_name": "", 
-//     // "password_sha256": "", 
-//     "email_id": "", 
-//     "phone_no": 55647483, 
-//     "roles": ['abcd', 'pqrs'], 
-//     "gender": "male", 
-//     "birth_date": "1/1/2000"
-// }
-
-// const client = new SQLiteClient('./auth.db');
-// client.insertIntoTable('users', a);
-// client.getFromTaable('users', 'username', 'abc').then(console.log)
 
 module.exports = SQLiteClient;
