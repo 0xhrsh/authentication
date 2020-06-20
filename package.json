@@ -1,0 +1,26 @@
+{
+  "name": "authentication",
+  "version": "0.0.1",
+  "description": "auth portal for IITJ",
+  "main": "index.js",
+  "scripts": {
+    "test": "",
+    "build": "npx babel ./ --out-dir ./build --ignore './node_modules', './*.json', '.gitignore'",
+    "dev": "nodemon --exec babel-node app.js"
+  },
+  "author": "FragileForce",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.3",
+    "@babel/core": "^7.10.3",
+    "@babel/node": "^7.10.3",
+    "babel-eslint": "^8.2.6",
+    "eslint": "^4.19.1",
+    "eslint-plugin-import": "^2.21.2",
+    "mocha": "^8.0.1",
+    "nodemon": "^2.0.4"
+  }
+}
