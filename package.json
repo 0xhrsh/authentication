@@ -7,7 +7,7 @@
     "test": "cd ./tests && npx mocha ./*.js",
     "lintTest": "npx eslint ./",
     "lint": "npx eslint ./ --fix",
-    "build": "npx babel ./ --out-dir ./build --ignore './node_modules','./*.json','.gitignore','README.md'",
+    "build": "npx babel ./ --out-dir ./build --ignore './node_modules','./*.json','.gitignore','README.md','.babelrc'",
     "dev": "npx nodemon --exec babel-node app.js"
   },
   "author": "FragileForce",
@@ -21,6 +21,7 @@
     "@babel/cli": "^7.10.3",
     "@babel/core": "^7.10.3",
     "@babel/node": "^7.10.3",
+    "@babel/plugin-transform-arrow-functions": "^7.10.1",
     "babel-eslint": "^8.2.6",
     "eslint": "^4.19.1",
     "eslint-plugin-import": "^2.21.2",
