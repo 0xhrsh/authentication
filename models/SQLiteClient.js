@@ -43,7 +43,7 @@ const generateInsertionSql = (table_name, entity_object) => {
 	values = values.substr(0, values.length-2);
     
 	const sql = `INSERT INTO ${table_name}(${keys}) VALUES(${values})`;
-	console.log(sql);
+	// console.log(sql);
 	return sql;
 };
 
@@ -68,7 +68,7 @@ class SQLiteClient{
 		});
 	}
 
-	getFromTaable(table_name, selector_column, value){
+	getFromTable(table_name, selector_column, value){
 		const querySql = `SELECT * FROM ${table_name} WHERE ${selector_column}='${value}'`;
 		const db = acquireSqlite3DBInstance(this.db_name);
 		return new Promise((resolve, reject) => {

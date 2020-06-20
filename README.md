@@ -1,3 +1,4 @@
+![Node.js CI](https://github.com/Wolverin-e/authentication/workflows/Node.js%20CI/badge.svg)
 # authentication
 IITJ Software Engineering Project: OAuth/openid based authentication portal
 

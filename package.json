@@ -4,7 +4,7 @@
   "description": "auth portal for IITJ",
   "main": "index.js",
   "scripts": {
-    "test": "",
+    "test": "cd ./tests && npx mocha ./*.js",
     "lintTest": "npx eslint ./",
     "lint": "npx eslint ./ --fix",
     "build": "npx babel ./ --out-dir ./build --ignore './node_modules','./*.json','.gitignore','README.md'",
@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "rimraf": "^3.0.2",
     "sqlite3": "^4.2.0"
   },
   "devDependencies": {
