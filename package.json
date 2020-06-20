@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "",
-    "build": "npx babel ./ --out-dir ./build --ignore './node_modules', './*.json', '.gitignore'",
-    "dev": "nodemon --exec babel-node app.js"
+    "lintTest": "npx eslint ./", 
+    "lint": "npx eslint ./ --fix", 
+    "build": "npx babel ./ --out-dir ./build --ignore './node_modules','./*.json','.gitignore'",
+    "dev": "npx nodemon --exec babel-node app.js"
   },
   "author": "FragileForce",
   "license": "ISC",

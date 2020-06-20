@@ -25,6 +25,12 @@
             "error",
             "always"
         ], 
+        "no-console": [
+            "error", 
+            {
+                "allow": ["log"]
+            }
+        ], 
         "strict": 0
     }
 }
