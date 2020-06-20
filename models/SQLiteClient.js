@@ -88,22 +88,22 @@ class SQLiteClient{
     }
 }
 
-const a = {
-    "user_id": "abc", 
-    "username": "abc", 
-    // "first_name": "abc", 
-    "last_name": "", 
-    "middle_name": "", 
-    // "password_sha256": "", 
-    "email_id": "", 
-    "phone_no": 55647483, 
-    "roles": ['abcd', 'pqrs'], 
-    "gender": "male", 
-    "birth_date": "1/1/2000"
-}
+// const a = {
+//     "user_id": "abc", 
+//     "username": "abc", 
+//     // "first_name": "abc", 
+//     "last_name": "", 
+//     "middle_name": "", 
+//     // "password_sha256": "", 
+//     "email_id": "", 
+//     "phone_no": 55647483, 
+//     "roles": ['abcd', 'pqrs'], 
+//     "gender": "male", 
+//     "birth_date": "1/1/2000"
+// }
 
-const client = new SQLiteClient('./auth.db');
-client.insertIntoTable('users', a);
-client.getFromTaable('users', 'username', 'abc').then(console.log)
+// const client = new SQLiteClient('./auth.db');
+// client.insertIntoTable('users', a);
+// client.getFromTaable('users', 'username', 'abc').then(console.log)
 
 module.exports = SQLiteClient;
