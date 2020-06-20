@@ -9,14 +9,8 @@
         "sourceType": "module"
     },
     "rules": {
-        "indent": [
-            "error",
-            "tab"
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
+        "indent": 0,
+        "linebreak-style": 0,
         "semi": [
             "error",
             "always"

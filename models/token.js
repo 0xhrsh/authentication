@@ -21,7 +21,7 @@ Token.prototype.getUserProfile = function (clientSecret) {
     var decrytedToken = this.decrptyToken();
     ldap = decrytedToken.split("___")[0];
     clientID = decrytedToken.split("___")[1];
-    thisClient = new client(clientID, clientSecret, "")
+    thisClient = new client(clientID, clientSecret, "");
     if (thisClient.assertClientCreds()) {
         // return getUser(ldap)
     }
