@@ -6,6 +6,7 @@ const Client = require('../models/client');
 describe("Token Tests", () => {
 
 	let token;
+	let user;
 	describe("Creating Token.", () => {
 		it("Shouldn't cause any Errors.", () => {
 			token = new Token("beta.1", "sampleID");
@@ -28,12 +29,22 @@ describe("Token Tests", () => {
 				const client = new Client("sampleID", "sampleSecret", "");
 				client.register();
 
-				assert.equal(Token.getUserProfile(token, "sampleSecret", ["user_id"])["success"], true);
+				user = Token.getUserProfile(token, "sampleSecret", ["user_id"]);
+				user.then(function(result) {
+					assert.equal(result["success"], true);	
+				});
 
-				assert.equal(Token.getUserProfile(token, "!sampleSecret", ["user_id"])["success"], false);
+				user = Token.getUserProfile(token, "!sampleSecret", ["user_id"]);
+				user.then(function(result) {
+					assert.equal(result["success"], false);	
+				});
 
 				token = new Token("!beta.1", "sampleID");
-				assert.equal(Token.getUserProfile(token, "sampleSecret", ["user_id"])["success"], false);
+				user = Token.getUserProfile(token, "sampleSecret", ["user_id"]);
+				user.then(function(result) {
+					assert.equal(result["success"], false);	
+				});
+
 			});
 		});
 	});
