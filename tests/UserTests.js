@@ -104,4 +104,17 @@ describe("User Tests", () => {
 			});
 		});
 	});
+
+	describe("Error Tests", () => {
+		describe("#exists() with some query manipulation", () => {
+			it("should return SQLITE_ERROR", () => {
+				return User.exist("abcd, 'pqrs'").then(
+					() => {}, 
+					(err) => {
+						assert.equal(err.code, "SQLITE_ERROR");
+					}
+				)
+			})
+		})
+	})
 });

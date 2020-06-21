@@ -91,9 +91,6 @@ class User{
 							resolve(false);
 						}
 					})
-					.catch (err => {
-						reject(err);
-					});
 			} else {
 				resolve(false);
 			}
