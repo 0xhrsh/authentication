@@ -27,7 +27,7 @@ class Token {
 		this.authToken = cipher.update(infoString, 'utf8', 'hex') + cipher.final('hex');
 	}
 
-	getUserProfile = function (clientSecret) {
+	getUserProfile(clientSecret) {
 		var decrytedToken = this.decrptyToken();
 		ldap = decrytedToken.split("___")[0];
 		clientID = decrytedToken.split("___")[1];
@@ -43,7 +43,7 @@ class Token {
 		//return auth window expired error
 	}
 
-	decrptyToken = function () {
+	decrptyToken() {
 		const decipher = crypto.createDecipheriv(algorithm, key, iv);
 		return decipher.update(this.authToken, 'hex', 'utf8') + decipher.final('utf8');
 	}
