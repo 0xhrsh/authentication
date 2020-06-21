@@ -65,20 +65,4 @@ class Client{
 	}
 }
 
-// const client = new Client("abc", "def", "ghi")
-// async function main(){
-// 	client.register();
-//     var obj = await Client.fetchFromDB("abc");
-//     console.log(obj.client_id);
-//     var p=Client.assertCreds("abc", "def");
-//     p.then(function(val) { 
-//         console.log(val); 
-//     });
-//     var p=Client.exist("abc");
-//     p.then(function(val) { 
-//         console.log(val); 
-//     }); 	
-// }
-// main();
-
 module.exports = Client;

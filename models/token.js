@@ -57,10 +57,4 @@ class Token {
 	}
 }
 
-// async function main(){
-// 	const tkn =	new Token("abc", "abc");
-// 	console.log(await Token.getUserProfile(tkn, "def", ["username", "email_id"]));
-// }
-
-// main();
 module.exports = Token;
