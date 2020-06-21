@@ -64,7 +64,7 @@ class Client{
 					})
 					.catch(err => {
 						reject(err);
-					})
+					});
 			} else {
 				resolve(false);
 			}
