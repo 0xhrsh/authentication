@@ -56,15 +56,18 @@ class Client{
 	}
 
 	static getRedirectURI(client_id){
-		return new Promise((resolve, reject) => {
-			dbclient.getFromTable('clients', 'client_id', client_id)
-				.then(client => {
-					if(client){
+		return new Promise(async (resolve, reject) => {
+			if(await dbclient.exist('clients', 'client_id', client_id)){
+				dbclient.getFromTable('clients', 'client_id', client_id)
+					.then(client => {
 						resolve(client.redirect_uri);
-					} else {
-						resolve(false);
-					}
-				});
+					})
+					.catch(err => {
+						reject(err);
+					})
+			} else {
+				resolve(false);
+			}
 		});
 	}
 }
