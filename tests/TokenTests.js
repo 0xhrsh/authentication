@@ -28,12 +28,12 @@ describe("Token Tests", () => {
 				const client = new Client("sampleID", "sampleSecret", "")
 				client.register()
 
-				assert.equal(await Token.getUserProfile(token, "sampleSecret", ["user_id"])["success"], true);
+				assert.equal(Token.getUserProfile(token, "sampleSecret", ["user_id"])["success"], true);
 
-				assert.equal(await Token.getUserProfile(token, "!sampleSecret", ["user_id"])["success"], false);
+				assert.equal(Token.getUserProfile(token, "!sampleSecret", ["user_id"])["success"], false);
 
 				token = new Token("!beta.1", "sampleID");
-				assert.equal(await Token.getUserProfile(token, "sampleSecret", ["user_id"])["success"], false);
+				assert.equal(Token.getUserProfile(token, "sampleSecret", ["user_id"])["success"], false);
 			});
 		});
 	});
