@@ -7,33 +7,32 @@ var password = "*insert_secret_key_here*";
 const key = crypto.scryptSync(password, 'salt', 24);
 
 const iv = Buffer.alloc(16, 0);
-const authWindow = 10 * 60 * 1000;
+const auth_window = 10 * 60 * 1000;
 
 
 // Class Token contains the implementation required for auth token operations,
 // including token creation and obtaining user details post credential verification
 class Token {
 
-	constructor(userID, clientID) {
+	constructor(user_id, client_id) {
 		const cipher = crypto.createCipheriv(algorithm, key, iv);
 
-		let requestDate = new Date();
-		let infoString = userID + "___" + clientID + "___" + requestDate;
+		let request_date = new Date();
+		let info_string = user_id + "___" + client_id + "___" + request_date;
 
-		this.authToken = cipher.update(infoString, 'utf8', 'hex') + cipher.final('hex');
+		this.authToken = cipher.update(info_string, 'utf8', 'hex') + cipher.final('hex');
 	}
 
-	static async getUserProfile(tkn, clientSecret, claimList) {
+	static async getUserProfile(tkn, client_secret, claim_list) {
 		var decryptedToken = this.decryptToken(tkn);
+		const user_id = decryptedToken.split("___")[0];
+		const client_id = decryptedToken.split("___")[1];
+		const request_date = new Date(decryptedToken.split("___")[2]).getTime();
 
-		const ldap = decryptedToken.split("___")[0];
-		const clientID = decryptedToken.split("___")[1];
-		const requestDate = new Date(decryptedToken.split("___")[2]).getTime();
-
-		if (new Date() <= new Date(requestDate + authWindow)) {
-			if (Client.assertCreds(clientID, clientSecret)) {
-				let user = await User.fetchFromDB(ldap);
-				user = user.getClaim(...claimList);
+		if (new Date() <= new Date(request_date + auth_window)) {
+			if (await Client.assertCreds(client_id, client_secret)) {
+				let user = await User.fetchFromDB(user_id);
+				user = user.getClaim(...claim_list);
 				return {
 					success: true,
 					user
@@ -41,7 +40,7 @@ class Token {
 			} else {
 				return {
 					success: false,
-					err: "client Err"
+					err: "client doesn't exist."
 				};
 			}
 		} else {
