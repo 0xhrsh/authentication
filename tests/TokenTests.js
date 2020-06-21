@@ -14,8 +14,7 @@ describe("Token Tests", () => {
 	describe("Static Tests", () => {
 		describe("#decryptToken() Test.", () => {
 			it("Shouldn't cause any Errors", async () => {
-				let token = new Token("beta.1", "test");
-				const decryptedToken = Token.decryptToken(token.authToken);
+				const decryptedToken = Token.decryptToken(token);
 				const fields = decryptedToken.split("___");
 				assert.equal(fields.length, 3);
 				assert.equal(fields[0], "beta.1");
