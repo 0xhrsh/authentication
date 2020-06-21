@@ -25,8 +25,8 @@ describe("Token Tests", () => {
 
 		describe("#getUserProfile() Tests", () => {
 			it("should return a asked fields after token verification", () => {
-				const client = new Client("sampleID", "sampleSecret", "")
-				client.register()
+				const client = new Client("sampleID", "sampleSecret", "");
+				client.register();
 
 				assert.equal(Token.getUserProfile(token, "sampleSecret", ["user_id"])["success"], true);
 
