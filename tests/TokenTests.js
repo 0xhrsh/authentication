@@ -1,5 +1,6 @@
 const Token = require('../models/Token');
 const assert = require('assert');
+const Client = require('../models/client');
 // const rimraf = require("rimraf");
 
 describe("Token Tests", () => {
@@ -7,7 +8,7 @@ describe("Token Tests", () => {
 	let token;
 	describe("Creating Token.", () => {
 		it("Shouldn't cause any Errors.", () => {
-			token = new Token("beta.1", "test");
+			token = new Token("beta.1", "sampleID");
 		});
 	});
 
@@ -18,28 +19,23 @@ describe("Token Tests", () => {
 				const fields = decryptedToken.split("___");
 				assert.equal(fields.length, 3);
 				assert.equal(fields[0], "beta.1");
-				assert.equal(fields[1], "test");
+				assert.equal(fields[1], "sampleID");
 			});
 		});
 
-		// describe("#getUserProfile() Tests", () => {
-		// 	it("should return a asked fields after token verification", () => {
-		// 		const user = Token.getUserProfile(token.authToken, "test2", ["user_id", "username", "phone_no"]);
-		// 		const supposed_user = {
-		// 			"user_id": "beta.1",
-		// 			"username": "beta.1",
-		// 			"phone_no": 1234567890
-		// 		};
+		describe("#getUserProfile() Tests", () => {
+			it("should return a asked fields after token verification", () => {
+				const client = new Client("sampleID", "sampleSecret", "")
+				client.register()
 
-		// 		Object.keys(supposed_user).forEach(key => {
-		// 			assert.equal(user[key], supposed_user[key]);
-		// 		});
+				assert.equal(await Token.getUserProfile(token, "sampleSecret", ["user_id"])["success"], true);
 
-		// 		Object.keys(user).forEach(key => {
-		// 			assert.equal(user[key], supposed_user[key]);
-		// 		});
-		// 	});
-		// });
+				assert.equal(await Token.getUserProfile(token, "!sampleSecret", ["user_id"])["success"], false);
+
+				token = new Token("!beta.1", "sampleID");
+				assert.equal(await Token.getUserProfile(token, "sampleSecret", ["user_id"])["success"], false);
+			});
+		});
 	});
 
 });
