@@ -20,9 +20,9 @@ const dbclient = new SQLiteClient('./auth.db');
 
 class User{
 
-	constructor(user_id , username , first_name , middle_name, last_name, 
-		password_sha256 , email_id , 
-		phone_no , roles, gender , birth_date){
+	constructor(user_id, username, first_name, middle_name, last_name, 
+		password_sha256, email_id, 
+		phone_no, roles, gender, birth_date){
 		this.user_id = user_id;
 		this.username = username;
 		this.first_name  = first_name;

@@ -31,7 +31,7 @@ class SQLiteClient{
 					if(row){
 						resolve(row);
 					} else {
-						reject(new Error("doesn't exist!"));
+						reject(new Error("row doesn't exist!"));
 					}
 				} else {
 					reject(err);

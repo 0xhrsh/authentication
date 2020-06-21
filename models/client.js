@@ -9,7 +9,7 @@ class Client{
 	}
 
 	register(){
-		dbclient.insertIntoTable('clients', this);
+		return dbclient.insertIntoTable('clients', this);
 	}
 
 	static fetchFromDB(clientID){
@@ -49,6 +49,19 @@ class Client{
 					reject(err);
 				});
 		});
+	}
+
+	static getRedirectURI(clientID){
+		return new Promise((resolve, reject) => {
+			dbclient.getFromTable('clients', 'client_id', clientID)
+				.then(client => {
+					if(client){
+						resolve(client.redirect_uri);
+					} else {
+						resolve(false);
+					}
+				})
+		})
 	}
 }
 

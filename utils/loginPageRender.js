@@ -1,5 +1,5 @@
 module.exports = (client_id, claims) => {
-	console.log(claims.join(','));
+	// console.log(claims.join(','));
 	return `<html>
         <head>
             <title>Login</title>
@@ -14,9 +14,9 @@ module.exports = (client_id, claims) => {
                     <b>${claims.join(', ')}</b>
                 </p>
                 <br>
-                Username: <input type="text" value="beta.1" name="username" id="username">
+                Username: <input type="text" value="abc" name="username" id="username">
                 <br>
-                Password: <input type="password" value="1234" name="password" id="password">
+                Password: <input type="password" value="abc" name="password" id="password">
                 <br>
                 <input type="hidden" name="client_id" id="client_id" value="${client_id}">
                 <input type="hidden" name="claims" id="claims" value="${claims.join(',')}">
