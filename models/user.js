@@ -81,31 +81,24 @@ class User{
     
 	static assertlogin(username, password)
 	{
-		return new Promise((resolve, reject) => {
-			dbclient.getFromTable('users' , 'username' , username)
-				.then(res => {
-					if(password === res.password_sha256){
-						resolve(true);
-					} else {
-						resolve(false);
-					}
-				})
-				.catch (err => {
-					reject(err);
-				});
+		return new Promise(async (resolve, reject) => {
+			if(await dbclient.exist('users', 'username', username)){
+				dbclient.getFromTable('users' , 'username' , username)
+					.then(res => {
+						if(password === res.password_sha256){
+							resolve(true);
+						} else {
+							resolve(false);
+						}
+					})
+					.catch (err => {
+						reject(err);
+					});
+			} else {
+				resolve(false);
+			}
 		});
 	}
 }
-
-
-// async function main(){
-// 	// const user = new User("abc" , "abc" , "abc" , "abc" , "abc", 
-// 	// 		"abc" , "abc" , 
-// 	// 		1111111111 , "abc" , "F" ,  "abc" );
-// 	// await user.register();
-// 	var obj = await User.fetchFromDB('abc');
-// 	console.log(obj.getClaim("username" , "password_sha256" ,"phone_no"));
-// }
-// main();
 
 module.exports = User;

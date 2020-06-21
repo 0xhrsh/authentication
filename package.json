@@ -4,10 +4,16 @@
   "description": "auth portal for IITJ",
   "main": "app.js",
   "scripts": {
+    "pretest": "npm run build",
     "test": "cd ./build/tests && npx mocha ./*.js",
+    "localTests": "cd ./tests && npx mocha ./*.js", 
+
     "lintTest": "npx eslint ./",
     "lint": "npx eslint ./ --fix",
+
+    "prebuild": "rm -rf build", 
     "build": "npx babel ./ --out-dir ./build --ignore './node_modules','./*.json','.gitignore','README.md','.babelrc'",
+    
     "dev": "npx nodemon --exec babel-node app.js"
   },
   "author": "FragileForce",

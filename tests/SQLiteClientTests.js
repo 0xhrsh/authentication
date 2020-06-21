@@ -5,23 +5,24 @@ const rimraf = require("rimraf");
 
 const dbclient = new SQLiteClient('./auth.db');
 
-before(async () => {
-	await createDB();
-});
-
-after(async () => {
-	await new Promise((resolve, reject) => {
-		rimraf('./auth.db', (err) => {
-			if(!err){
-				resolve();
-			} else {
-				reject();
-			}
-		});
-	});
-});
 
 describe("SQLiteClient Tests", () => {
+
+	before(async () => {
+		await createDB();
+	});
+
+	after(async () => {
+		await new Promise((resolve, reject) => {
+			rimraf('./auth.db', (err) => {
+				if(!err){
+					resolve();
+				} else {
+					reject();
+				}
+			});
+		});
+	});
 
 	describe("InsertIntoTable Tests", () => {
 		it("should insert user object into users table in auth.db", async () => {
