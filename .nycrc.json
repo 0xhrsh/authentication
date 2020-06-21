@@ -1,0 +1,7 @@
+{
+    "report-dir": "./coverage", 
+    "exclude": [
+        "**/utils/*.js", 
+        "**/tests/*.js"
+    ]
+}
