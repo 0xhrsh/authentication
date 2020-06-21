@@ -1,4 +1,4 @@
-const {err_cb, acquireSqlite3DBInstance, stringify, generateInsertionSql} = require("../utils/SqliteClientUtils");
+const {err_cb, acquireSqlite3DBInstance, generateInsertionSql} = require("../utils/SqliteClientUtils");
 
 class SQLiteClient{
 

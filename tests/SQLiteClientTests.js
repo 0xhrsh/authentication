@@ -50,6 +50,36 @@ describe("SQLiteClient Tests", () => {
 			await dbclient.insertIntoTable('clients', client);
 		});
 	});
+
+	describe("Exists Tests", () => {
+		describe("Getting existance status of earlier injected user", () => {
+			it("should return true", async() => {
+				const doesItExist = await dbclient.exist('users', 'username', 'beta.1');
+				assert.equal(doesItExist, true);
+			});
+		});
+
+		describe("Getting existance status of non-existent user", () => {
+			it("should return true", async() => {
+				const doesItExist = await dbclient.exist('users', 'username', 'beta.2');
+				assert.equal(doesItExist, false);
+			});
+		});
+		
+		describe("Getting existance status of earlier injected client", () => {
+			it("should return false", async () => {
+				const doesItExist = await dbclient.exist('clients', 'client_id', 'LHC_portal');
+				assert.equal(doesItExist, true);
+			});
+		});
+
+		describe("Getting existance status of non-existent client", () => {
+			it("should return false", async() => {
+				const doesItExist = await dbclient.exist('users', 'username', 'shady_pention_portal');
+				assert.equal(doesItExist, false);
+			});
+		});
+	});
     
 	describe("GetFromTable Tests", () => {
 		describe("Getting user object earlier injected", () => {
