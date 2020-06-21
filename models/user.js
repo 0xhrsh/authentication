@@ -36,6 +36,29 @@ class User{
 		this.birth_date = birth_date; 
 	}
     
+	static fetchFromDB(username){
+		return new Promise(async (resolve, reject) => {
+			if (await dbclient.exist('users', 'username', username)) {
+				const user = await dbclient.getFromTable('users', 'username', username);
+				resolve(new User(
+					user.user_id, 
+					user.username, 
+					user.first_name, 
+					user.middle_name, 
+					user.last_name, 
+					user.password_sha256, 
+					user.email_id, 
+					user.phone_no, 
+					user.roles, 
+					user.gender, 
+					user.birth_date, 
+				));
+			} else {
+				resolve(false);
+			}
+		});
+	}
+    
 	register() {
 		dbclient.insertIntoTable('users', this);
 	}
@@ -75,12 +98,14 @@ class User{
 }
 
 
-/* const user = new User("abc" , "abc" , "abc" , "abc" , "abc", 
-        "abc" , "abc" , 
-        1111111111 , "abc" , "F" ,  "abc" );
-    user.register();
-    var obj =user.getClaim("username" , "password_sha256" ,"phone_no");
-    console.log(obj);*/
-    
+// const user = new User("abc" , "abc" , "abc" , "abc" , "abc", 
+//         "abc" , "abc" , 
+//         1111111111 , "abc" , "F" ,  "abc" );
+// async function main(){
+// 	// user.register();
+// 	var obj = await User.fetchFromDB('abcd');
+// 	console.log(obj.getClaim("username" , "password_sha256" ,"phone_no"));
+// }
+// main();
 
 module.exports = User;
