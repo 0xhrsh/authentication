@@ -4,6 +4,7 @@ const {
 } = require("console");
 
 const Client = require("./Client");
+const User = require('./User')
 
 var algorithm = "aes-192-cbc";
 var password = "*insert_secret_key_here*";
@@ -27,16 +28,19 @@ class Token {
 		this.authToken = cipher.update(infoString, 'utf8', 'hex') + cipher.final('hex');
 	}
 
-	getUserProfile(clientSecret) {
+	getUserProfile(clientSecret, claimList) {
 		var decrytedToken = this.decrptyToken();
-		ldap = decrytedToken.split("___")[0];
-		clientID = decrytedToken.split("___")[1];
-		requestDate = new Date(decrytedToken.split("___")[2]).getTime();
+
+		const ldap = decrytedToken.split("___")[0];
+		const clientID = decrytedToken.split("___")[1];
+		const requestDate = new Date(decrytedToken.split("___")[2]).getTime();
 
 		if (new Date() <= new Date(requestDate + authWindow)) {
-			thisClient = new Client(clientID, clientSecret, "");
+			const thisClient = new Client(clientID, clientSecret, "");
 			if (thisClient.assertClientCreds()) {
-				// return getUser(ldap)
+				const user = User.fetchFromDB(ldap);
+				user.getClaim(...claimList)
+				return user
 			}
 			//return Client invalid error
 		}
