@@ -11,7 +11,8 @@
     "lint": "npx eslint ./ --fix",
     "prebuild": "rm -rf build",
     "build": "npx babel ./ --out-dir ./build --ignore './node_modules','./*.json','.gitignore','README.md','.babelrc'",
-    "dev": "npx nodemon --exec babel-node app.js"
+    "dev": "npx nodemon --exec babel-node app.js", 
+    "start": "npm run dev"
   },
   "author": "FragileForce",
   "license": "ISC",

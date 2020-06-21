@@ -1,6 +1,6 @@
 module.exports = (client_id, claims) => {
-    console.log(claims.join(','))
-    return `<html>
+	console.log(claims.join(','));
+	return `<html>
         <head>
             <title>Login</title>
         </head>
@@ -23,5 +23,5 @@ module.exports = (client_id, claims) => {
                 <input type="submit" value="submit">
             </form>
         </body>
-    </html>`
-}
+    </html>`;
+};
