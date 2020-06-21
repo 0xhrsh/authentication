@@ -2,3 +2,4 @@ node_modules
 build
 models/auth.db
 utils/auth.db
+.nyc_output
