@@ -60,14 +60,14 @@ class User{
 	}
     
 	register() {
-		dbclient.insertIntoTable('users', this);
+		return dbclient.insertIntoTable('users', this);
 	}
     
 	getClaim(){
 		var obj = {};
-		for(var i=0;i<arguments.length;i++){
-			obj[arguments[i]] = this[arguments[i]]; 
-		}
+		Object.values(arguments).forEach(argument => {
+			obj[argument] = this[argument]; 
+		});
 		return obj;
 	}
     
@@ -98,12 +98,12 @@ class User{
 }
 
 
-// const user = new User("abc" , "abc" , "abc" , "abc" , "abc", 
-//         "abc" , "abc" , 
-//         1111111111 , "abc" , "F" ,  "abc" );
 // async function main(){
-// 	// user.register();
-// 	var obj = await User.fetchFromDB('abcd');
+// 	// const user = new User("abc" , "abc" , "abc" , "abc" , "abc", 
+// 	// 		"abc" , "abc" , 
+// 	// 		1111111111 , "abc" , "F" ,  "abc" );
+// 	// await user.register();
+// 	var obj = await User.fetchFromDB('abc');
 // 	console.log(obj.getClaim("username" , "password_sha256" ,"phone_no"));
 // }
 // main();
