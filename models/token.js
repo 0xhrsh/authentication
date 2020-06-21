@@ -1,5 +1,7 @@
 var crypto = require("crypto");
-const {timeStamp} = require("console");
+const {
+	timeStamp
+} = require("console");
 
 const Client = require("./Client");
 
@@ -14,35 +16,37 @@ const authWindow = 10 * 60 * 1000;
 
 // Class Token contains the implementation required for auth token operations,
 // including token creation and obtaining user details post credential verification
-function Token(userID, clientID) {
-	const cipher = crypto.createCipheriv(algorithm, key, iv);
+class Token {
 
-	let requestDate = new Date();
-	let infoString = userID + "___" + clientID + "___" + requestDate;
+	constructor(userID, clientID) {
+		const cipher = crypto.createCipheriv(algorithm, key, iv);
 
-	this.authToken = cipher.update(infoString, 'utf8', 'hex') + cipher.final('hex');
-}
+		let requestDate = new Date();
+		let infoString = userID + "___" + clientID + "___" + requestDate;
 
-Token.prototype.getUserProfile = function (clientSecret) {
-	var decrytedToken = this.decrptyToken();
-	ldap = decrytedToken.split("___")[0];
-	clientID = decrytedToken.split("___")[1];
-	requestDate = new Date(decrytedToken.split("___")[2]).getTime();
-
-	if (new Date() <= new Date(requestDate + authWindow)) {
-		thisClient = new Client(clientID, clientSecret, "");
-		if (thisClient.assertClientCreds()) {
-			// return getUser(ldap)
-		}
-		//return Client invalid error
+		this.authToken = cipher.update(infoString, 'utf8', 'hex') + cipher.final('hex');
 	}
-	//return auth window expired error
-};
 
+	getUserProfile = function (clientSecret) {
+		var decrytedToken = this.decrptyToken();
+		ldap = decrytedToken.split("___")[0];
+		clientID = decrytedToken.split("___")[1];
+		requestDate = new Date(decrytedToken.split("___")[2]).getTime();
 
-Token.prototype.decrptyToken = function () {
-	const decipher = crypto.createDecipheriv(algorithm, key, iv);
-	return decipher.update(this.authToken, 'hex', 'utf8') + decipher.final('utf8');
-};
+		if (new Date() <= new Date(requestDate + authWindow)) {
+			thisClient = new Client(clientID, clientSecret, "");
+			if (thisClient.assertClientCreds()) {
+				// return getUser(ldap)
+			}
+			//return Client invalid error
+		}
+		//return auth window expired error
+	}
+
+	decrptyToken = function () {
+		const decipher = crypto.createDecipheriv(algorithm, key, iv);
+		return decipher.update(this.authToken, 'hex', 'utf8') + decipher.final('utf8');
+	}
+}
 
 module.exports = Token;
