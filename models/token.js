@@ -4,7 +4,7 @@ const {
 } = require("console");
 
 const Client = require("./Client");
-const User = require('./User')
+const User = require('./User');
 
 var algorithm = "aes-192-cbc";
 var password = "*insert_secret_key_here*";
@@ -39,8 +39,8 @@ class Token {
 			const thisClient = new Client(clientID, clientSecret, "");
 			if (thisClient.assertClientCreds()) {
 				const user = User.fetchFromDB(ldap);
-				user.getClaim(...claimList)
-				return user
+				user.getClaim(...claimList);
+				return user;
 			}
 			//return Client invalid error
 		}
