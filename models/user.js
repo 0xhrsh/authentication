@@ -1,5 +1,5 @@
 const SQLiteClient = require('./SQLiteClient');
-const client = new SQLiteClient('./auth.db');
+const dbclient = new SQLiteClient('./auth.db');
 
 
 //users database 
@@ -20,63 +20,67 @@ const client = new SQLiteClient('./auth.db');
 
 class User{
 
-    constructor(user_id , username , first_name , middle_name, last_name, 
-        password_sha256 , email_id , 
-        phone_no , roles, gender , birth_date){
-        this.user_id = user_id;
-        this.username = username;
-        this.first_name  = first_name;
-        this.middle_name = middle_name;
-        this.last_name = last_name;
-        this.password_sha256 = password_sha256;
-        this.email_id = email_id;
-        this.phone_no = phone_no;
-        this.roles = roles;
-        this.gender = gender;
-        this.birth_date = birth_date; 
-    }
-    register() {
-        
-        client.insertIntoTable('users', this);
-    }
-    getClaim(){
-                var obj = {};
-            for(var i=0;i<arguments.length;i++)
-                {   obj[arguments[i]] = this[arguments[i]]; }
-        return obj;
-    }
-    static exist(username)
-    {
-        return new Promise((resolve, reject) => 
-        {
-            client.exist_user('users', 'username' , username)
-            .then(exist => {return resolve(exist); })
-            .catch(err => {return reject(err); });
-        });
-    }
-    static assertlogin(username, password)
-    {
-        return new Promise((resolve, reject) => 
-        {
-            client.getFromTable('users' , 'username' , username)
-                .then(res => 
-                {
-                    if(password === res.password_sha256)
-                        return resolve(true);
-                    else return resolve(false);
-                })
-                .catch (err => {
-                    return reject(err);
-                });
-        });
-    }
+	constructor(user_id , username , first_name , middle_name, last_name, 
+		password_sha256 , email_id , 
+		phone_no , roles, gender , birth_date){
+		this.user_id = user_id;
+		this.username = username;
+		this.first_name  = first_name;
+		this.middle_name = middle_name;
+		this.last_name = last_name;
+		this.password_sha256 = password_sha256;
+		this.email_id = email_id;
+		this.phone_no = phone_no;
+		this.roles = roles;
+		this.gender = gender;
+		this.birth_date = birth_date; 
+	}
+    
+	register() {
+		dbclient.insertIntoTable('users', this);
+	}
+    
+	getClaim(){
+		var obj = {};
+		for(var i=0;i<arguments.length;i++){
+			obj[arguments[i]] = this[arguments[i]]; 
+		}
+		return obj;
+	}
+    
+	static exist(username){
+		return new Promise((resolve, reject) => {
+			dbclient.exist('users', 'username' , username)
+				.then(exist => resolve(exist))
+				.catch(err => reject(err));
+		});
+	}
+    
+	static assertlogin(username, password)
+	{
+		return new Promise((resolve, reject) => {
+			dbclient.getFromTable('users' , 'username' , username)
+				.then(res => {
+					if(password === res.password_sha256){
+						resolve(true);
+					} else {
+						resolve(false);
+					}
+				})
+				.catch (err => {
+					reject(err);
+				});
+		});
+	}
 }
 
 
-   /* const user = new User("abc" , "abc" , "abc" , "abc" , "abc", 
+/* const user = new User("abc" , "abc" , "abc" , "abc" , "abc", 
         "abc" , "abc" , 
         1111111111 , "abc" , "F" ,  "abc" );
     user.register();
     var obj =user.getClaim("username" , "password_sha256" ,"phone_no");
     console.log(obj);*/
     
+
+module.exports = User;
