@@ -14,7 +14,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 ///////////////////////////////// ROUTES
-
 app.get("/loginPage", async (req, res) => {
 	if(await Client.exist(req.query.client_id)){
 		res.send(
@@ -50,11 +49,11 @@ app.get("/dataEP", async (req, res)=> {
 
 ///////////////////////////////// EXAMPLE
 app.get("/", (req, res) => {
-	res.redirect(`/loginPage?client_id=abc&claims=user_id,username,phone_no`);
+	res.redirect(`/loginPage?client_id=LHC_portal&claims=user_id,username,phone_no`);
 });
 
 app.get("/exampleRedirectPoint", (req, res) => {
-	res.redirect(`/dataEP?tkn=${req.query.tkn}&client_secret=def&claims=user_id,username,phone_no`);
+	res.redirect(`/dataEP?tkn=${req.query.tkn}&client_secret=top_secret&claims=user_id,username,phone_no`);
 });
 
 ///////////////////////////////// LISTENING
