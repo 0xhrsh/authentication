@@ -37,14 +37,17 @@ class Token {
 
 		if (new Date() <= new Date(requestDate + authWindow)) {
 			const thisClient = new Client(clientID, clientSecret, "");
-			if (thisClient.assertClientCreds()) {
-				const user = User.fetchFromDB(ldap);
-				user.getClaim(...claimList);
-				return user;
-			}
-			//return Client invalid error
+			return new Promise(async (resolve, reject) => {
+				if (thisClient.assertClientCreds()) {
+					const user = User.fetchFromDB(ldap);
+					user.getClaim(...claimList);
+					resolve(user);
+				} else {
+					resolve(false); //TODO: return Client invalid error
+				}
+			});
 		}
-		//return auth window expired error
+		//TODO: return auth window expired error
 	}
 
 	decrptyToken() {
