@@ -90,7 +90,7 @@ class User{
 						} else {
 							resolve(false);
 						}
-					})
+					});
 			} else {
 				resolve(false);
 			}

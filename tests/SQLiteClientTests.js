@@ -119,9 +119,9 @@ describe("SQLiteClient Tests", () => {
 						(err) => {
 							assert.equal(err.code, "SQLITE_ERROR");
 						}
-					)
-			})
-		})
+					);
+			});
+		});
 
 		describe("#getFromTable()", () => {
 			describe("With wrong selector name", () => {
@@ -132,9 +132,9 @@ describe("SQLiteClient Tests", () => {
 							(err) => {
 								assert.equal(err.code, "SQLITE_ERROR");
 							}
-						)
-				})
-			})
+						);
+				});
+			});
 
 			describe("With wrong selector value", () => {
 				it("should throw SQLITE_ERROR", () => {
@@ -144,10 +144,10 @@ describe("SQLiteClient Tests", () => {
 							(err) => {
 								assert.equal(err.message, "row doesn't exist!");
 							}
-						)
-				})
-			})
-		})
+						);
+				});
+			});
+		});
 
 		describe("#exists() with wrong table name.", () => {
 			it("should throw SQLITE_ERROR", () => {
@@ -157,8 +157,8 @@ describe("SQLiteClient Tests", () => {
 						(err) => {
 							assert.equal(err.code, "SQLITE_ERROR");
 						}
-					)
-			})
-		})
-	})
+					);
+			});
+		});
+	});
 });

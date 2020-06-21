@@ -113,8 +113,8 @@ describe("User Tests", () => {
 					(err) => {
 						assert.equal(err.code, "SQLITE_ERROR");
 					}
-				)
-			})
-		})
-	})
+				);
+			});
+		});
+	});
 });
