@@ -5,8 +5,23 @@ const Client = require('../models/client');
 
 describe("Token Tests", () => {
 
-	let token;
-	let user;
+	before(async () => {
+		await createDB();
+	});
+    
+	after(async () => {
+		await new Promise((resolve, reject) => {
+			rimraf('./auth.db', (err) => {
+				if(!err){
+					resolve();
+				} else {
+					reject();
+				}
+			});
+		});
+	});
+
+	let token, user;
 	describe("Creating Token.", () => {
 		it("Shouldn't cause any Errors.", () => {
 			token = new Token("beta.1", "sampleID");
