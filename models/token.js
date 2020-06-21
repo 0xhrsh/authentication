@@ -47,7 +47,7 @@ class Token {
 			return {
 				success: false, 
 				err: "auth window err"
-			}
+			};
 		}
 	}
 

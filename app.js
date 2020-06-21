@@ -46,8 +46,8 @@ app.get("/dataEP", async (req, res)=> {
 
 ///////////////////////////////// EXAMPLE
 app.get("/exampleRedirectPoint", (req, res) => {
-	res.redirect("/dataEP?tkn="+req.query.tkn+"&client_secret=def")
-})
+	res.redirect("/dataEP?tkn="+req.query.tkn+"&client_secret=def");
+});
 
 ///////////////////////////////// LISTENING
 app.listen(port, () => {

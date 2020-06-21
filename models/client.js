@@ -60,8 +60,8 @@ class Client{
 					} else {
 						resolve(false);
 					}
-				})
-		})
+				});
+		});
 	}
 }
 
