@@ -1,7 +1,10 @@
 const Token = require('../models/Token');
-const assert = require('assert');
 const Client = require('../models/client');
-// const rimraf = require("rimraf");
+
+const assert = require('assert');
+const rimraf = require("rimraf");
+
+const createDB = require("../utils/createDBWithSchemaScript");
 
 describe("Token Tests", () => {
 
