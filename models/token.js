@@ -5,6 +5,7 @@ const User = require('./User');
 var algorithm = "aes-192-cbc";
 var password = "*insert_secret_key_here*";
 const key = crypto.scryptSync(password, 'salt', 24);
+
 const iv = Buffer.alloc(16, 0);
 const authWindow = 10 * 60 * 1000;
 
@@ -23,35 +24,35 @@ class Token {
 	}
 
 	static async getUserProfile(tkn, clientSecret, claimList) {
-		var decrytedToken = this.decrptyToken(tkn);
+		var decryptedToken = this.decryptToken(tkn);
 
-		const ldap = decrytedToken.split("___")[0];
-		const clientID = decrytedToken.split("___")[1];
-		const requestDate = new Date(decrytedToken.split("___")[2]).getTime();
+		const ldap = decryptedToken.split("___")[0];
+		const clientID = decryptedToken.split("___")[1];
+		const requestDate = new Date(decryptedToken.split("___")[2]).getTime();
 
 		if (new Date() <= new Date(requestDate + authWindow)) {
 			if (Client.assertCreds(clientID, clientSecret)) {
 				let user = await User.fetchFromDB(ldap);
 				user = user.getClaim(...claimList);
 				return {
-					success: true, 
+					success: true,
 					user
 				};
 			} else {
 				return {
-					success: false, 
+					success: false,
 					err: "client Err"
 				};
 			}
 		} else {
 			return {
-				success: false, 
+				success: false,
 				err: "auth window err"
 			};
 		}
 	}
 
-	static decrptyToken(tkn) {
+	static decryptToken(tkn) {
 		const decipher = crypto.createDecipheriv(algorithm, key, iv);
 		return decipher.update(tkn.authToken, 'hex', 'utf8') + decipher.final('utf8');
 	}
