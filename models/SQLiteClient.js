@@ -11,7 +11,7 @@ class SQLiteClient{
 		const insertion_sql = generateInsertionSql(table_name, entity_object);
 		return new Promise( (resolve, reject) => {
 			db.run(insertion_sql, (err) => {
-				db.close(err => err_cb);
+				db.close(errr => err_cb);
 				if(!err){
 					resolve();
 				} else {
@@ -26,7 +26,7 @@ class SQLiteClient{
 		const db = acquireSqlite3DBInstance(this.db_name);
 		return new Promise((resolve, reject) => {
 			db.get(querySql, (err, row) => {
-				db.close(err => err_cb);
+				db.close(errr => err_cb);
 				if(!err) {
 					if(row){
 						resolve(row);
@@ -45,7 +45,7 @@ class SQLiteClient{
 		const db = acquireSqlite3DBInstance(this.db_name);
 		return new Promise((resolve, reject) => {
 			db.get(querySql, (err, row) => {
-				db.close(err => err_cb);
+				db.close(errr => err_cb);
 				if(!err) {
 					if(row){
 						{ return resolve(true); }

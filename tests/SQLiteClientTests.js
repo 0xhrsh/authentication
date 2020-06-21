@@ -109,4 +109,56 @@ describe("SQLiteClient Tests", () => {
 			});
 		});
 	});
+
+	describe("Error Testing", () => {
+		describe("#insertIntoTable() with wrong table name.", () => {
+			it("should throw SQLITE_ERROR", () => {
+				return dbclient.insertIntoTable('alpha', {abc:'pqr'})
+					.then(
+						() => {}, 
+						(err) => {
+							assert.equal(err.code, "SQLITE_ERROR");
+						}
+					)
+			})
+		})
+
+		describe("#getFromTable()", () => {
+			describe("With wrong selector name", () => {
+				it("should throw SQLITE_ERROR", () => {
+					return dbclient.getFromTable('users', 'abc', 'pqr')
+						.then(
+							() => {}, 
+							(err) => {
+								assert.equal(err.code, "SQLITE_ERROR");
+							}
+						)
+				})
+			})
+
+			describe("With wrong selector value", () => {
+				it("should throw SQLITE_ERROR", () => {
+					return dbclient.getFromTable('users', 'user_id', 'pqr')
+						.then(
+							() => {}, 
+							(err) => {
+								assert.equal(err.message, "row doesn't exist!");
+							}
+						)
+				})
+			})
+		})
+
+		describe("#exists() with wrong table name.", () => {
+			it("should throw SQLITE_ERROR", () => {
+				return dbclient.exist('abc', 'pqr', 'xyz')
+					.then(
+						() => {}, 
+						(err) => {
+							assert.equal(err.code, "SQLITE_ERROR");
+						}
+					)
+			})
+		})
+	})
 });
