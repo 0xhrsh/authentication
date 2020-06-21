@@ -1,39 +1,39 @@
 {
-	"name": "authentication",
-	"version": "0.0.1",
-	"description": "auth portal for IITJ",
-	"main": "app.js",
-	"scripts": {
-	  "pretest": "npm run build",
-	  "test": "cd ./build/tests && npx mocha ./*.js",
-	  "localTests": "cd ./tests && npx mocha ./*.js", 
-  
-	  "lintTest": "npx eslint ./",
-	  "lint": "npx eslint ./ --fix",
-  
-	  "prebuild": "rm -rf build", 
-	  "build": "npx babel ./ --out-dir ./build --ignore './node_modules','./*.json','.gitignore','README.md','.babelrc'",
-	  
-	  "dev": "npx nodemon --exec babel-node app.js"
-	},
-	"author": "FragileForce",
-	"license": "ISC",
-	"dependencies": {
-	  "bcryptjs": "^2.4.3",
-	  "express": "^4.17.1",
-	  "rimraf": "^3.0.2",
-	  "sqlite3": "^4.2.0"
-	},
-	"devDependencies": {
-	  "@babel/cli": "^7.10.3",
-	  "@babel/core": "^7.10.3",
-	  "@babel/node": "^7.10.3",
-	  "@babel/plugin-transform-arrow-functions": "^7.10.1",
-	  "babel-eslint": "^8.2.6",
-	  "eslint": "^4.19.1",
-	  "eslint-plugin-import": "^2.21.2",
-	  "mocha": "^8.0.1",
-	  "nodemon": "^2.0.4"
-	}
+  "name": "authentication",
+  "version": "0.0.1",
+  "description": "auth portal for IITJ",
+  "main": "app.js",
+  "scripts": {
+    "pretest": "npm run build",
+    "test": "cd ./build/tests && npx mocha ./*.js",
+    "localTests": "cd ./tests && npx mocha ./*.js",
+    "lintTest": "npx eslint ./",
+    "lint": "npx eslint ./ --fix",
+    "prebuild": "rm -rf build",
+    "build": "npx babel ./ --out-dir ./build --ignore './node_modules','./*.json','.gitignore','README.md','.babelrc'",
+    "dev": "npx nodemon --exec babel-node app.js", 
+    "start": "npm run dev"
+  },
+  "author": "FragileForce",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "rimraf": "^3.0.2",
+    "sqlite3": "^4.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.3",
+    "@babel/core": "^7.10.3",
+    "@babel/node": "^7.10.3",
+    "@babel/plugin-transform-arrow-functions": "^7.10.1",
+    "babel-eslint": "^8.2.6",
+    "eslint": "^4.19.1",
+    "eslint-plugin-import": "^2.21.2",
+    "mocha": "^8.0.1",
+    "nodemon": "^2.0.4"
   }
+}
   
