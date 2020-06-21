@@ -1,11 +1,10 @@
-var SQLiteClient = require('./SQLiteClient');
-const bcrypt = require("bcryptjs");
-const Validator = require("validator");
-const isEmpty = require("is-empty");
+const SQLiteClient = require('./SQLiteClient');
+const client = new SQLiteClient('./auth.db');
+
 
 //users database 
 /*
-	user_id TEXT, 
+    user_id TEXT, 
     username TEXT, 
     first_name TEXT, 
     middle_name TEXT, 
@@ -18,71 +17,66 @@ const isEmpty = require("is-empty");
     birth_date TEXT
 */
 
-const ValidateTableInput = function validateTableInput(data) {
-    let errors = {};
-    data.user_id = !isEmpty(data.user_id) ? data.user_id : "";
-    data.username = !isEmpty(data.username) ? data.username : "";
-    data.first_name = !isEmpty(data.first_name) ? data.first_name : "";
-    data.middle_name = !isEmpty(data.middle_name) ? data.middle_name : "";
-    data.last_name = !isEmpty(data.last_name) ? data.last_name : "";
-    data.password_sha256 = !isEmpty(data.password_sha256) ? data.password_sha256 : "";
-    data.email_id = !isEmpty(data.email_id) ? data.email_id : "";
-    data.roles = !isEmpty(data.roles) ? data.roles : "";
-    data.gender = !isEmpty(data.gender) ? data.gender : "";
-    data.birth_date = !isEmpty(data.birth_date) ? data.birth_date : "";
 
-    if (Validator.isEmpty(data.user_id)) {
-        errors.user_id = "user_id is required";
-    }
+class User{
 
-    if (Validator.isEmpty(data.first_name)) {
-        errors.first_name = "first_name is required";
+    constructor(user_id , username , first_name , middle_name, last_name, 
+        password_sha256 , email_id , 
+        phone_no , roles, gender , birth_date){
+        this.user_id = user_id;
+        this.username = username;
+        this.first_name  = first_name;
+        this.middle_name = middle_name;
+        this.last_name = last_name;
+        this.password_sha256 = password_sha256;
+        this.email_id = email_id;
+        this.phone_no = phone_no;
+        this.roles = roles;
+        this.gender = gender;
+        this.birth_date = birth_date; 
     }
-
-    if (Validator.isEmpty(data.last_name)) {
-        errors.last_name = "last_name is required";
+    register() {
+        
+        client.insertIntoTable('users', this);
     }
-
-    if (Validator.isEmpty(data.password_sha256)) {
-      errors.password_sha256 = "Password field is required";
+    getClaim(){
+                var obj = {};
+            for(var i=0;i<arguments.length;i++)
+                {   obj[arguments[i]] = this[arguments[i]]; }
+        return obj;
     }
-    else if (!Validator.isLength(data.password_sha256, { min: 10, max: 10 })) {
-      errors.password_sha256 = "Password must be atleast 6 character long";
-    }
-    
-    if (Validator.isEmpty(data.email_id)) {
-      errors.email_id = "Email field is required";
-    } 
-    else if (!Validator.isEmail(data.email_id)) {
-      errors.email_id = "Email is invalid";
-    }
-    else if (!(/^[a-z]+\.+[0-9]+@iitj.ac.in$/).test(data.email_id))
+    static exist(username)
     {
-      errors.email_id = "use IITJ email"
-    }
-
-    return {
-      errors,
-      isValid: isEmpty(errors)
-    };
-  };
-class SQLiteClient{
-	insertIntoTable(EntityObject){
-		const { errors, isValid } = ValidateTableInput(EntityObject);
-    	if (!isValid) {
-      	  //handle error request here
-      	  console.log(errors)
-    	}
-    	bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(EntityObject.password, salt, (err, hash) => {
-            if (err) throw err;
-            EntityObject.password = hash;
-            SQLiteClient.insertIntoTable('users', EntityObject);
-          });
+        return new Promise((resolve, reject) => 
+        {
+            client.exist_user('users', 'username' , username)
+            .then(exist => {return resolve(exist); })
+            .catch(err => {return reject(err); });
         });
-	}
-	getFromTaable(selector_column, value)
-	{
-		SQLiteClient.getFromTaable('users', selector_column, value);
-	}
+    }
+    static assertlogin(username, password)
+    {
+        return new Promise((resolve, reject) => 
+        {
+            client.getFromTable('users' , 'username' , username)
+                .then(res => 
+                {
+                    if(password === res.password_sha256)
+                        return resolve(true);
+                    else return resolve(false);
+                })
+                .catch (err => {
+                    return reject(err);
+                });
+        });
+    }
 }
+
+
+   /* const user = new User("abc" , "abc" , "abc" , "abc" , "abc", 
+        "abc" , "abc" , 
+        1111111111 , "abc" , "F" ,  "abc" );
+    user.register();
+    var obj =user.getClaim("username" , "password_sha256" ,"phone_no");
+    console.log(obj);*/
+    

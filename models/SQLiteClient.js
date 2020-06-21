@@ -86,6 +86,24 @@ class SQLiteClient{
 			});
 		});
 	}
+	exist_user(table_name, selector_column, value){
+		const querySql = `SELECT * FROM ${table_name} WHERE ${selector_column}='${value}'`;
+		const db = acquireSqlite3DBInstance(this.db_name);
+		return new Promise((resolve, reject) => {
+			db.get(querySql, (err, row) => {
+				db.close(err => err_cb);
+				if(!err) {
+					if(row){
+						{ return resolve(true); }
+					} else {
+						return resolve(false);
+					}
+				} else {
+					return reject(err);
+				}
+			});
+		});
+	}
 }
 
 module.exports = SQLiteClient;
