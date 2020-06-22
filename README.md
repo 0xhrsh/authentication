@@ -5,12 +5,12 @@ IITJ Software Engineering Project: OAuth/openid based authentication portal
 
 # Login Sequence with oauth/openid
 <p align="center">
-<img src=".readme/FinalLoginSequence.jpg">
+<img src=".readme/FinalLoginSequenceReduced.jpg">
 </p>
 
 # Class Diagram of The Project
 <p align="center">
-<img src=".readme/FinalClassDiagram.jpg">
+<img src=".readme/FinalClassDiagramReduced.jpg">
 </p>
 
 # NPM Scripts
