@@ -1,25 +1,48 @@
+
 ![Node.js CI](https://github.com/Wolverin-e/authentication/workflows/Node.js%20CI/badge.svg)
-# authentication
+# Authentication Portal
 IITJ Software Engineering Project: OAuth/openid based authentication portal
 
-## LintTest
-> npm run lintTest
+# Login Sequence with oauth/openid
+<p align="center">
+<img src=".readme/FinalLoginSequence.jpg">
+</p>
 
-## Lint
-> npm run lint
+# Class Diagram of The Project
+<p align="center">
+<img src=".readme/FinalClassDiagram.jpg">
+</p>
 
-## Build
-> npm run build
+# NPM Scripts
 
-## Test
-#### Without build & coverage
-> npm run localTests
+ 1. **Lint Test**
+	```sh
+	$ npm run lintTest
+	```
 
-#### Without build
-> npm run localTestsWithCoverage
+2. **Lint**
+	```sh
+	$ npm run lint
+	```
 
-#### With build and Coverage
-> npm test
+3. **Build**
+	```sh
+	$ npm run build
+	```
 
-## Start Server
-> npm start
+4. **Tests**
+	```sh 
+	# Without build & coverage
+	$ npm run localTests
+
+	# Without build
+	$ npm run localTestsWithCoverage
+
+	# With build and Coverage
+	$ npm test
+	```
+
+5.  **Start Dev Server**
+	```sh
+	$ npm start
+	```
