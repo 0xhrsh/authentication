@@ -1,5 +1,6 @@
 const Token = require('../models/Token');
 const Client = require('../models/client');
+const User = require('../models/User');
 
 const assert = require('assert');
 const rimraf = require("rimraf");
@@ -10,6 +11,23 @@ describe("Token Tests", () => {
 
 	before(async () => {
 		await createDB();
+		const user = new User(
+			"beta.1", 
+			"beta.1", 
+			"alpha", 
+			"gamma", 
+			"beta", 
+			"1234", 
+			"beta.1@iitj.ac.in", 
+			1234567890, 
+			"student,pg", 
+			"male", 
+			"1/1/2000"
+		);
+		await user.register();
+
+		const client = new Client("sampleID", "sampleSecret", "");
+		await client.register();
 	});
     
 	after(async () => {
@@ -43,28 +61,27 @@ describe("Token Tests", () => {
 		});
 
 		describe("#getUserProfile() Tests", () => {
-			it("should return a asked fields after token verification", () => {
-				const client = new Client("sampleID", "sampleSecret", "");
-				client.register();
-
-				user = Token.getUserProfile(token, "sampleSecret", ["user_id"]);
-				user.then(function(result) {
-					assert.equal(result["success"], true);	
-				});
-
-				user = Token.getUserProfile(token, "!sampleSecret", ["user_id"]);
-				user.then(function(result) {
-					assert.equal(result["success"], false);	
-				});
-
-				token = new Token("!beta.1", "sampleID");
-				user = Token.getUserProfile(token, "sampleSecret", ["user_id"]);
-				user.then(function(result) {
-					assert.equal(result["success"], false);	
-				});
-
+			it("should return a asked fields after token verification", async () => {
+				user = await Token.getUserProfile(token, "sampleSecret", ["user_id"]);
+				assert.equal(user.user.user_id, "beta.1");
 			});
 		});
+
+		describe("Error Testing", () => {
+			describe("#getUserProfile() Testing", () => {
+				it("should return ClientErr error for fake clients", async() => {
+					user = await Token.getUserProfile(token, "samplesecret", ["user_id"]);
+					assert.equal(user.err, "ClientErr");
+				})
+
+				it("should return AuthWindowErr error for fake clients", async() => {
+					Token.auth_window = 1;
+					token = new Token("beta.1", "sampleID");
+					user = await Token.getUserProfile(token, "sampleSecret", ["user_id"]);
+					assert.equal(user.err, "AuthWindowErr");
+				})
+			})
+		})
 	});
 
 });
