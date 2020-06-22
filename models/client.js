@@ -50,7 +50,7 @@ class Client{
 						reject(err);
 					});
 			} else {
-				return false;
+				resolve(false);
 			}
 		});
 	}
