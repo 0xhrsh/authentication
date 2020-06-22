@@ -14,20 +14,21 @@ const iv = Buffer.alloc(16, 0);
 // including token creation and obtaining user details post credential verification
 class Token {
 
-	constructor(user_id, client_id) {
+	constructor(user_id, client_id, claim_list) {
 		const cipher = crypto.createCipheriv(algorithm, key, iv);
 
 		let request_date = new Date();
-		let info_string = user_id + "___" + client_id + "___" + request_date;
+		let info_string = user_id + "___" + client_id + "___" + request_date + "___" + claim_list.join(',');
 
 		this.authToken = cipher.update(info_string, 'utf8', 'hex') + cipher.final('hex');
 	}
 
-	static async getUserProfile(tkn, client_secret, claim_list) {
+	static async getUserProfile(tkn, client_secret) {
 		var decryptedToken = this.decryptToken(tkn);
 		const user_id = decryptedToken.split("___")[0];
 		const client_id = decryptedToken.split("___")[1];
 		const request_date = new Date(decryptedToken.split("___")[2]).getTime();
+		const claim_list = decryptedToken.split("___")[3].split(',');
 
 		if (new Date() <= new Date(request_date + Token.auth_window)) {
 			if (await Client.assertCreds(client_id, client_secret)) {

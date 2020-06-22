@@ -45,7 +45,7 @@ describe("Token Tests", () => {
 	let token, user;
 	describe("Creating Token.", () => {
 		it("Shouldn't cause any Errors.", () => {
-			token = new Token("beta.1", "sampleID");
+			token = new Token("beta.1", "sampleID", ["user_id"]);
 		});
 	});
 
@@ -54,7 +54,7 @@ describe("Token Tests", () => {
 			it("Shouldn't cause any Errors", async () => {
 				const decryptedToken = Token.decryptToken(token);
 				const fields = decryptedToken.split("___");
-				assert.equal(fields.length, 3);
+				assert.equal(fields.length, 4);
 				assert.equal(fields[0], "beta.1");
 				assert.equal(fields[1], "sampleID");
 			});
@@ -62,7 +62,7 @@ describe("Token Tests", () => {
 
 		describe("#getUserProfile() Tests", () => {
 			it("should return a asked fields after token verification", async () => {
-				user = await Token.getUserProfile(token, "sampleSecret", ["user_id"]);
+				user = await Token.getUserProfile(token, "sampleSecret");
 				assert.equal(user.user.user_id, "beta.1");
 			});
 		});
@@ -70,14 +70,14 @@ describe("Token Tests", () => {
 		describe("Error Testing", () => {
 			describe("#getUserProfile() Testing", () => {
 				it("should return ClientErr error for fake clients", async() => {
-					user = await Token.getUserProfile(token, "samplesecret", ["user_id"]);
+					user = await Token.getUserProfile(token, "samplesecret");
 					assert.equal(user.err, "ClientErr");
 				});
 
 				it("should return AuthWindowErr error for fake clients", async() => {
 					Token.auth_window = 1;
-					token = new Token("beta.1", "sampleID");
-					user = await Token.getUserProfile(token, "sampleSecret", ["user_id"]);
+					token = new Token("beta.1", "sampleID", ["user_id"]);
+					user = await Token.getUserProfile(token, "sampleSecret");
 					assert.equal(user.err, "AuthWindowErr");
 				});
 			});

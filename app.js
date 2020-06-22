@@ -26,7 +26,7 @@ app.get("/loginPage", async (req, res) => {
 
 app.post("/authEP", async (req, res) => {
 	if(await User.assertlogin(req.body.username, req.body.password)){
-		let tkn = new Token(req.body.username, req.body.client_id);
+		let tkn = new Token(req.body.username, req.body.client_id, req.body.claims.split(','));
 		let redirect_uri = await Client.getRedirectURI(req.body.client_id);
 		redirect_uri?
 			res.redirect(redirect_uri+"?tkn="+tkn.authToken):
@@ -42,8 +42,7 @@ app.post("/authEP", async (req, res) => {
 app.get("/dataEP", async (req, res)=> {
 	res.send(await Token.getUserProfile(
 		{ authToken: req.query.tkn }, 
-		req.query.client_secret, 
-		req.query.claims.split(',')
+		req.query.client_secret
 	));
 });
 
@@ -53,7 +52,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/exampleRedirectPoint", (req, res) => {
-	res.redirect(`/dataEP?tkn=${req.query.tkn}&client_secret=top_secret&claims=user_id,username,phone_no`);
+	res.redirect(`/dataEP?tkn=${req.query.tkn}&client_secret=top_secret`);
 });
 
 ///////////////////////////////// LISTENING
