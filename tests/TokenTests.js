@@ -72,16 +72,16 @@ describe("Token Tests", () => {
 				it("should return ClientErr error for fake clients", async() => {
 					user = await Token.getUserProfile(token, "samplesecret", ["user_id"]);
 					assert.equal(user.err, "ClientErr");
-				})
+				});
 
 				it("should return AuthWindowErr error for fake clients", async() => {
 					Token.auth_window = 1;
 					token = new Token("beta.1", "sampleID");
 					user = await Token.getUserProfile(token, "sampleSecret", ["user_id"]);
 					assert.equal(user.err, "AuthWindowErr");
-				})
-			})
-		})
+				});
+			});
+		});
 	});
 
 });
