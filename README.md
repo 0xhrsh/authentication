@@ -3,6 +3,11 @@
 # Authentication Portal
 IITJ Software Engineering Project: OAuth/openid based authentication portal
 
+# Use Case Diagram
+<p align="center">
+<img src=".readme/ExtendedUseCaseDiagramReduced.jpg">
+</p>
+
 # Login Sequence with oauth/openid
 <p align="center">
 <img src=".readme/FinalLoginSequenceReduced.jpg">
