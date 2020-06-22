@@ -12,10 +12,11 @@ IITJ Software Engineering Project: OAuth/openid based authentication portal
 > npm run build
 
 ## Test
-Build is required before testing, so
-> npm run build
+> npm localTests \\ Without build & coverage
 
-> npm test
+> npm localTestsWithCoverage \\ Without build
+
+> npm test \\ With build and Coverage
 
 ## Start Server
 > npm start
