@@ -38,23 +38,27 @@ class User{
     
 	static fetchFromDB(username){
 		return new Promise(async (resolve, reject) => {
-			if (await dbclient.exist('users', 'username', username)) {
-				const user = await dbclient.getFromTable('users', 'username', username);
-				resolve(new User(
-					user.user_id, 
-					user.username, 
-					user.first_name, 
-					user.middle_name, 
-					user.last_name, 
-					user.password_sha256, 
-					user.email_id, 
-					user.phone_no, 
-					user.roles, 
-					user.gender, 
-					user.birth_date, 
-				));
-			} else {
-				resolve(false);
+			try{
+				if (await dbclient.exist('users', 'username', username)) {
+					const user = await dbclient.getFromTable('users', 'username', username);
+					resolve(new User(
+						user.user_id, 
+						user.username, 
+						user.first_name, 
+						user.middle_name, 
+						user.last_name, 
+						user.password_sha256, 
+						user.email_id, 
+						user.phone_no, 
+						user.roles, 
+						user.gender, 
+						user.birth_date, 
+					));
+				} else {
+					resolve(false);
+				}
+			} catch(err) {
+				reject(err);
 			}
 		});
 	}
@@ -82,17 +86,21 @@ class User{
 	static assertlogin(username, password)
 	{
 		return new Promise(async (resolve, reject) => {
-			if(await dbclient.exist('users', 'username', username)){
-				dbclient.getFromTable('users' , 'username' , username)
-					.then(res => {
-						if(password === res.password_sha256){
-							resolve(true);
-						} else {
-							resolve(false);
-						}
-					});
-			} else {
-				resolve(false);
+			try{
+				if(await dbclient.exist('users', 'username', username)){
+					dbclient.getFromTable('users' , 'username' , username)
+						.then(res => {
+							if(password === res.password_sha256){
+								resolve(true);
+							} else {
+								resolve(false);
+							}
+						});
+				} else {
+					resolve(false);
+				}
+			} catch(err) {
+				reject(err);
 			}
 		});
 	}

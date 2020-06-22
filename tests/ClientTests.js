@@ -93,4 +93,42 @@ describe("Client Tests", () => {
 			});
 		});
 	});
+
+	describe("Error Testing", () => {
+		describe("#exist()", () => {
+			it("should raise SQLITE_ERROR", () => {
+				return Client.exist(`abcd, 'pqrs'`)
+					.then(
+						() => {}, 
+						(err) => {
+							assert.equal(err.code, "SQLITE_ERROR");
+						}
+					)
+			});
+		});
+
+		describe("#assertCreds()", () => {
+			it("should raise ", () => {
+				return Client.assertCreds(`abcd, 'ab'`, `abcd, 'ab'`)
+					.then(
+						() => {}, 
+						(err) => {
+							assert.equal(err.code, "SQLITE_ERROR");
+						}
+					)
+			})
+		});
+
+		describe("#getRedirectURI()", () => {
+			it("should raise ", () => {
+				return Client.getRedirectURI(`abcd, 'pqrs'`)
+					.then(
+						() => {}, 
+						(err) => {
+							assert.equal(err.code, "SQLITE_ERROR");
+						}
+					)
+			})
+		});
+	})
 });

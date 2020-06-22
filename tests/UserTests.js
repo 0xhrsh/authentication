@@ -8,7 +8,7 @@ describe("User Tests", () => {
 	before(async () => {
 		await createDB();
 	});
-    
+
 	after(async () => {
 		await new Promise((resolve, reject) => {
 			rimraf('./auth.db', (err) => {
@@ -85,7 +85,7 @@ describe("User Tests", () => {
 			});
 		});
 	});
-    
+
 	describe("#getClaim() Tests", () => {
 		it("should return a subset of asked fields", () => {
 			const claim = user.getClaim("user_id", "username", "phone_no");
@@ -109,6 +109,28 @@ describe("User Tests", () => {
 		describe("#exists() with some query manipulation", () => {
 			it("should return SQLITE_ERROR", () => {
 				return User.exist("abcd, 'pqrs'").then(
+					() => {}, 
+					(err) => {
+						assert.equal(err.code, "SQLITE_ERROR");
+					}
+				);
+			});
+		});
+
+		describe("#fetchFromDB() with some query manipulation", () => {
+			it("should return SQLITE_ERROR", () => {
+				return User.fetchFromDB("abcd, 'pqrs'").then(
+					() => {}, 
+					(err) => {
+						assert.equal(err.code, "SQLITE_ERROR");
+					}
+				);
+			});
+		});
+
+		describe("#assertLogin() with some query manipulation", () => {
+			it("should return SQLITE_ERROR", () => {
+				return User.assertlogin("abcd, 'pqrs'", 'abcd').then(
 					() => {}, 
 					(err) => {
 						assert.equal(err.code, "SQLITE_ERROR");

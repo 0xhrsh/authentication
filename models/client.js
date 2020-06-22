@@ -37,36 +37,38 @@ class Client{
 
 	static assertCreds(client_id, client_secret){
 		return new Promise(async (resolve, reject) => {
-			if(await dbclient.exist('clients', 'client_id', client_id)) {
-				dbclient.getFromTable('clients' , 'client_id' , client_id)
-					.then(res => {
-						if(client_secret === res.client_secret){
-							resolve(true);
-						} else {
-							resolve(false);
-						}
-					})
-					.catch (err => {
-						reject(err);
-					});
-			} else {
-				resolve(false);
+			try{
+				if(await dbclient.exist('clients', 'client_id', client_id)) {
+					dbclient.getFromTable('clients' , 'client_id' , client_id)
+						.then(res => {
+							if(client_secret === res.client_secret){
+								resolve(true);
+							} else {
+								resolve(false);
+							}
+						})
+				} else {
+					resolve(false);
+				}
+			} catch(err) {
+				reject(err);
 			}
 		});
 	}
 
 	static getRedirectURI(client_id){
 		return new Promise(async (resolve, reject) => {
-			if(await dbclient.exist('clients', 'client_id', client_id)){
-				dbclient.getFromTable('clients', 'client_id', client_id)
-					.then(client => {
-						resolve(client.redirect_uri);
-					})
-					.catch(err => {
-						reject(err);
-					});
-			} else {
-				resolve(false);
+			try{
+				if(await dbclient.exist('clients', 'client_id', client_id)){
+					dbclient.getFromTable('clients', 'client_id', client_id)
+						.then(client => {
+							resolve(client.redirect_uri);
+						})
+				} else {
+					resolve(false);
+				}
+			} catch (err){
+				reject(err);
 			}
 		});
 	}
