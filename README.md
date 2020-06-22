@@ -2,8 +2,8 @@
 ![Node.js CI](https://github.com/Wolverin-e/authentication/workflows/Node.js%20CI/badge.svg)
 # Authentication Portal
 IITJ Software Engineering Project: OAuth/openid based authentication portal
-- [Use Case Diagram](#use-case-diagram--extended-scenario-)
-- [Login Sequence](#login-sequence-with-oauth-openid)
+- [Use Case Diagram](#use-case-diagram-extended-scenario)
+- [Login Sequence](#login-sequence-with-oauthopenid)
 - [Class Diagram of The Project](#class-diagram-of-the-project)
 - [NPM Scripts](#npm-scripts)
 # Use Case Diagram (Extended Scenario)
