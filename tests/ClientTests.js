@@ -103,7 +103,7 @@ describe("Client Tests", () => {
 						(err) => {
 							assert.equal(err.code, "SQLITE_ERROR");
 						}
-					)
+					);
 			});
 		});
 
@@ -115,8 +115,8 @@ describe("Client Tests", () => {
 						(err) => {
 							assert.equal(err.code, "SQLITE_ERROR");
 						}
-					)
-			})
+					);
+			});
 		});
 
 		describe("#getRedirectURI()", () => {
@@ -127,8 +127,8 @@ describe("Client Tests", () => {
 						(err) => {
 							assert.equal(err.code, "SQLITE_ERROR");
 						}
-					)
-			})
+					);
+			});
 		});
-	})
+	});
 });

@@ -46,7 +46,7 @@ class Client{
 							} else {
 								resolve(false);
 							}
-						})
+						});
 				} else {
 					resolve(false);
 				}
@@ -63,7 +63,7 @@ class Client{
 					dbclient.getFromTable('clients', 'client_id', client_id)
 						.then(client => {
 							resolve(client.redirect_uri);
-						})
+						});
 				} else {
 					resolve(false);
 				}
